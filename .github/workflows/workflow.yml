@@ -15,11 +15,22 @@ jobs:
        - name: Launching the app
          run: docker-compose up --detach
 
-       - name: OWASP ZAP
-         uses: zaproxy/action-baseline@v0.4.0
-         with:
-           # Target URL
-           target: "http://localhost:4000"
-           fail_action: false
-           token: $
-           issue_title: Security Tests
+      - name: OWASP ZAP Baseline Scan
+  # You may pin to the exact commit or the version.
+  # uses: zaproxy/action-baseline@acd8e997263688cb49cb5ff8247a4b2758c548ab
+  uses: zaproxy/action-baseline@v0.4.0
+  with:
+    # GitHub Token to create issues in the repository
+    token:$
+    # Target URL
+    target: "http://localhost:4000"
+    # Relative path of the ZAP configuration file
+    rules_file_name: # optional
+    # The Docker file to be executed
+    docker_name: # default is owasp/zap2docker-stable
+    # Additional command line options
+    cmd_options: # optional
+    # The title for the GitHub issue to be created
+    issue_title: Security test
+    # The action status will be set to fail if ZAP identifies any alerts during the baseline scan
+    fail_action: false
