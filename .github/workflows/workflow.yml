@@ -4,7 +4,7 @@ on: [push]
 jobs:
   test:
     name: OWASP ZAP SCANS
-    runs-on: ubuntu-latest
+    runs-on: bionic-20230412
 
     steps:
        - uses: actions/checkout@v2
