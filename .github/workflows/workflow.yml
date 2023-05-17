@@ -4,12 +4,18 @@ on: [push]
 jobs:
   test:
     name: OWASP ZAP SCANS
-    runs-on: bionic-20230412
-
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ["14.x"]
+        
     steps:
        - uses: actions/checkout@v2
          with:
-          ref: master
+            persist-credentials: false 
+            ref: master
        - name: Building Docker Node-Goat Image
          run: docker-compose build
        - name: Launching the app
@@ -18,7 +24,7 @@ jobs:
        - name: OWASP ZAP
          uses: zaproxy/action-baseline@v0.4.0
          with:
-           # Target URL
+           persist-credentials: false 
            target: "http://localhost:4000"
            fail_action: false
            token: $
