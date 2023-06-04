@@ -30,7 +30,6 @@ jobs:
             target: "http://localhost:4000"
 
             fail_action: false
-    # Whether Github issues should be created or not
             
 
          
