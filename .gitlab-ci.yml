@@ -16,7 +16,7 @@ zap-automation-baseline-scan 1/2:
     - docker-compose build
     - docker-compose up --detach
     - docker ps
-    - docker run owasp/zap2docker-stable zap-baseline.py -t https://brokencrystals.com/ -g baseline-report.html
+    - docker run -t owasp/zap2docker-stable zap-baseline.py -t https://brokencrystals.com/ -g baseline-report.html
     - docker ps
 
 zap-automation-baseline-scan 2/2:
