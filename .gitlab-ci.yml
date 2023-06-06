@@ -16,6 +16,8 @@ zap-automation-baseline-scan 1/2:
     - docker-compose build
     - docker-compose up --detach
     - docker ps
+    - docker run -d --name proxyzap owasp/zap2docker-stable:latest watch "pwd"
+    - docker ps
 
 zap-automation-baseline-scan 2/2:
   tags: 
