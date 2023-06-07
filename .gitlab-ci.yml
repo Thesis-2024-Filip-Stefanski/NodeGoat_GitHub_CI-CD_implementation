@@ -14,7 +14,10 @@ zap-automation-baseline-scan 1/2:
   before_script:
     - docker network create mynetwork
     - docker-compose build
-    - docker-compose up --detach
+    - docker-compose up --detach --name test
+    - docker ps 
+    - docker network connect mynetwork test
+    - docker network inspect mynetwork
   script:
     - docker run --network=mynetwork -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable zap-baseline.py -t http://app:4000 -r baseline-report.html
   after_script:
