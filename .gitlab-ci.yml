@@ -9,14 +9,15 @@ zap-automation-baseline-scan 1/2:
   stage: test
   image: docker:latest
   services:
-    - docker:dind
+    - name: docker:dind
+      alias: app
   script:
     - hostname -i
     - docker ps
     - docker-compose build
     - docker-compose up --detach
     - docker ps
-    - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t https://localhost:4000/ -g gen.conf -r testreport.html
+    - docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t https://app:4000/ -g gen.conf -r testreport.html
     - docker ps
 
 zap-automation-baseline-scan 2/2:
