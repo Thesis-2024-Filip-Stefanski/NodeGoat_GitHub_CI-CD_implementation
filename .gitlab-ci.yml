@@ -14,7 +14,7 @@ zap-automation-baseline-scan 1/2:
   before_script:
     - docker network create mynetwork
     - docker-compose build
-    - docker-compose up --detach --name test
+    - docker-compose up --detach 
     - docker ps 
     - docker network connect mynetwork test
     - docker network inspect mynetwork
