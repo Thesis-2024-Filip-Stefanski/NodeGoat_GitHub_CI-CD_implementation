@@ -21,6 +21,7 @@ zap-automation-baseline-scan 1/2:
     - docker network inspect mynetwork
   script:
     - docker run --network=mynetwork -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable zap-full-scan.py -t http://app-web-1:4000 -r baseline-report.html
+    - docker ps
   after_script:
     - docker-compose down
 
