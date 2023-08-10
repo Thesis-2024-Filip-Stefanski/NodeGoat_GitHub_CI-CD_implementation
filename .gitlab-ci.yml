@@ -22,6 +22,9 @@ zap-automation-baseline-scan 1/2:
   script:
     - docker run --network=mynetwork --name OWASPZAP -d -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable zap-baseline.py -t http://app-web-1:4000 -r baseline-report.html
     - docker ps
+    - docker exec -i OWASPZAP ls 
+    - docker exec -i OWASPZAP pwd
+    - docker exec -i OWASPZAP find / baseline-report.html
   after_script:
     - docker ps
     - docker-compose down
