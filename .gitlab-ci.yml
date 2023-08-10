@@ -27,7 +27,7 @@ test:
     #- docker exec -i OWASPZAP zap-baseline.py -t http://app-web-1:4000 -r  baseline-report.html
     - docker exec OWASPZAP sh -c ls
     - docker exec -i OWASPZAP pwd
-    - docker cp OWASPZAP:/zap/ZAP_ALERT_REPORT.html .
+    - docker cp OWASPZAP:/zap/ZAP_REPORT.html .
     - docker cp OWASPZAP:/zap/ZAP_ALERT_REPORT.md .
   after_script:
     - docker ps
@@ -36,7 +36,8 @@ test:
     - docker-compose down
   artifacts:
     paths:
-      - baseline-report.html
+      - ZAP_REPORT.html
+      - ZAP_ALERT_REPORT.md
 
 
     
