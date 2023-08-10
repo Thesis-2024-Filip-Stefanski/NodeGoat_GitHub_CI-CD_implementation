@@ -21,9 +21,10 @@ test:
     - docker network inspect mynetwork
   script:
     - docker run -d -i -t --network=mynetwork --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
-    - sleep 15
     - docker ps
-    - docker exec -i OWASPZAP zap-baseline.py -t http://app-web-1:4000 -r  baseline-report.html && sleep 3600
+    - docker cp testscan.yaml OWASPZAP:testscan.yaml 
+    - docker exec OWASPZAP sh -c ls
+    - docker exec -i OWASPZAP zap-baseline.py -t http://app-web-1:4000 -r  baseline-report.html
     - docker cp OWASPZAP:/zap/wrk/baseline-report.html .
   after_script:
     - docker ps
