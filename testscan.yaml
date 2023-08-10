@@ -73,7 +73,7 @@ jobs:
   type: "spiderAjax"
 - parameters:
     template: "traditional-html"
-    reportDir: "CI_PROJECT_DIR"
+    reportDir: "/zap"
     reportFile: "ZAP_REPORT"
     reportTitle: "ZAP Baseline Scan Report"
     reportDescription: ""
@@ -97,7 +97,7 @@ jobs:
   type: "report"
 - parameters:
     template: "traditional-md"
-    reportDir: "CI_PROJECT_DIR"
+    reportDir: "/zap"
     reportFile: "ZAP_ALERT_REPORT"
     reportTitle: "ZAP Scanning Report"
     reportDescription: "This is report that should contain only alerts that should\
