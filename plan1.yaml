@@ -3,7 +3,7 @@ env:
   contexts:
   - name: "Default Context"
     urls:
-    - "http://localhost:4000"
+    - "http://app-web-1:4000"
     includePaths: []
     excludePaths: []
     authentication:
@@ -26,7 +26,7 @@ jobs:
 - parameters:
     context: "Default Context"
     user: ""
-    url: "http://localhost:4000"
+    url: "http://app-web-1:4000"
     maxDuration: 0
     maxDepth: 0
     maxChildren: 0
