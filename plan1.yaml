@@ -19,7 +19,7 @@ env:
       exclude: []
   parameters:
     failOnError: true
-    failOnWarning: false
+    failOnWarning: true
     progressToStdout: true
   vars: {}
 jobs:
@@ -47,11 +47,11 @@ jobs:
   name: "spider"
   type: "spider"
   tests:
-  - onFail: "INFO"
+  - onFail: "WARN"
     statistic: "automation.spider.urls.added"
     site: ""
     operator: ">="
-    value: 100
+    value: 1000
     name: "At least 100 URLs found"
     type: "stats"
 - parameters:
@@ -72,7 +72,7 @@ jobs:
   type: "activeScan"
 - parameters:
     template: "traditional-html"
-    reportDir: "CI_PROJECT_DIR"
+    reportDir: "/zap"
     reportFile: "ZAP_REPORT"
     reportTitle: "ZAP Baseline Scan Report"
     reportDescription: ""
@@ -96,7 +96,7 @@ jobs:
   type: "report"
 - parameters:
     template: "traditional-md"
-    reportDir: "CI_PROJECT_DIR"
+    reportDir: "/zap"
     reportFile: "ZAP_ALERT_REPORT"
     reportTitle: "ZAP Scanning Report"
     reportDescription: "This is report that should contain only alerts that should\
