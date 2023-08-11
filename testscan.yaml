@@ -49,7 +49,7 @@ jobs:
     statistic: "automation.spider.urls.added"
     site: ""
     operator: ">="
-    value: 100
+    value: 1000
     name: "At least 100 URLs found"
     type: "stats"
   name: "spider"
