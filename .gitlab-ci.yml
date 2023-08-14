@@ -39,28 +39,6 @@ test_and_build:
       - ZAP_REPORT.html
       - ZAP_ALERT_REPORT.md
 
-test:
-  tags: 
-    - gitlab-org-docker
-  image:
-    name: owasp/zap2docker-stable:latest
-    entrypoint: [""]
-  services: 
-    - docker:dind
-  stage: test
-  script:
-    - ls
-    - pwd
-  only:
-    refs:
-    - branches
-  artifacts:
-    when: always
-    expire_in: 1 month
-    paths:
-      - ${CI_PROJECT_DIR}/${ZAP_REPORT}.html
-      - ${CI_PROJECT_DIR}/${ZAP_ALERT_REPORT}.md
-
 
     
 zap-automation-baseline-scan 2/2:
