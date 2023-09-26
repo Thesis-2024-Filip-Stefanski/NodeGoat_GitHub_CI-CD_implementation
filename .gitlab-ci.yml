@@ -22,8 +22,8 @@ test_and_build:
   script:
     - docker run -d -i -t --network=mynetwork --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
     - docker ps
-    - docker cp plan1.yaml OWASPZAP:/zap/plan1.yaml 
-    - docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/plan1.yaml
+    - docker cp testscan.yaml OWASPZAP:/zap/testscan.yaml 
+    - docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/testscan.yaml
     #- docker exec -i OWASPZAP zap-baseline.py -t http://app-web-1:4000 -r  baseline-report.html
     - docker exec OWASPZAP sh -c ls
     - docker exec -i OWASPZAP pwd
