@@ -25,4 +25,12 @@ jobs:
          run: |
             docker run -d -i -t --network=mynetwork --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
             docker ps
+       
+       - name: Copy test files to the OWASP ZAP image
+         run: |
+           docker cp OWASPZAP_scanns/normal_scann_no_fail_on_warning.yaml OWASPZAP:/zap/normal_scann_no_fail_on_warning.yaml 
+           docker exec OWASPZAP sh -c ls
+           docker exec -i OWASPZAP pwd
 
+            
+      
