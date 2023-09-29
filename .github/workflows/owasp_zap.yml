@@ -30,8 +30,13 @@ jobs:
          run: docker cp OWASPZAP_scanns/normal_scann_no_fail_on_warning.yaml OWASPZAP:/zap/normal_scann_no_fail_on_warning.yaml 
 
        - name: Execute the scan
-         run: docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/normal_scann_no_fail_on_warning.yaml
-       
+         run: |
+           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/normal_scann_no_fail_on_warning.yaml
+           docker exec OWASPZAP sh -c ls
+           docker exec -i OWASPZAP pwd
 
-            
-      
+       - name: Download HTML Report
+         uses: actions/upload-pages-artifact@v2.0.0
+         with:
+           path: ZAP_REPORT.html
+
