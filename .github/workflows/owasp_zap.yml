@@ -35,8 +35,9 @@ jobs:
            docker exec OWASPZAP sh -c ls
            docker exec -i OWASPZAP pwd
 
-       - name: Download HTML Report
-         uses: actions/upload-pages-artifact@v2.0.0
+       - name: Upload HTML Report
+         uses: actions/upload-artifact@v3
          with:
+           name: ZAP_REPORT.html
            path: ZAP_REPORT.html
 
