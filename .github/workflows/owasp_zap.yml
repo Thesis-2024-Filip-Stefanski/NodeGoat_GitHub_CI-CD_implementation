@@ -10,6 +10,7 @@ jobs:
        - uses: actions/checkout@v2
          with:
           ref: master
+          
        - name: Create Docker Network
          run: |
           docker network create mynetwork
@@ -19,5 +20,9 @@ jobs:
           docker network connect mynetwork docker-compose_application_web_1
           docker network connect mynetwork docker-compose_application_mongo_1
           docker network inspect mynetwork
-       - name: Launching the app
-         run: docker-compose up --detach
+          
+       - name: Set up testing environment
+         run: |
+            docker run -d -i -t --network=mynetwork --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
+            docker ps
+
