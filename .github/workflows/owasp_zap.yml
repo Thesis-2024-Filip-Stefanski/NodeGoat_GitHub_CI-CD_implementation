@@ -34,15 +34,18 @@ jobs:
            docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/normal_scann_no_fail_on_warning.yaml
            docker exec OWASPZAP sh -c ls
            docker exec -i OWASPZAP pwd
+           docker cp OWASPZAP:/zap/ZAP_REPORT.html .
+           docker cp OWASPZAP:/zap/ZAP_ALERT_REPORT.md .
+
 
        - name: Upload HTML Report
          uses: actions/upload-artifact@v3
          with:
            name: ZAP_REPORT.html
-           path: OWASPZAP:/zap/ZAP_REPORT.html
+           path: ZAP_REPORT.html
 
        - name: Upload MD Report
          uses: actions/upload-artifact@v3
          with:
            name: ZAP_ALERT_REPORT.md
-           path: OWASPZAP:/zap/ZAP_ALERT_REPORT.md
+           path: ZAP_ALERT_REPORT.md
