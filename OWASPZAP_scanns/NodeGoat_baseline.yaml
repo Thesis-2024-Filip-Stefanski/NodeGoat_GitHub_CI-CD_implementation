@@ -79,7 +79,7 @@ jobs:
   name: "passiveScan-wait"
   type: "passiveScan-wait"
 - parameters:
-    context: "Juice Shop"
+    context: "NodeGoat"
     user: ""
     url: ""
     maxDuration: 60
