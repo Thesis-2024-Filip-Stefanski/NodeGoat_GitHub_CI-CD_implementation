@@ -3,9 +3,9 @@ env:
   contexts:
   - name: "NodeGoat"
     urls:
-    - "http://app-web-1:4000"
+    - "http://docker-compose_application_web_1:4000"
     includePaths:
-    - "http://app-web-1:4000.*"
+    - "http://docker-compose_application_web_1:4000.*"
     excludePaths: []
     authentication:
       parameters: {}
@@ -181,7 +181,7 @@ jobs:
     name: "activeScan/alert"
     type: "alert"
   - onFail: "ERROR"
-    url: "http://app-web-1:4000"
+    url: "http://docker-compose_application_web_1:4000"
     requestHeaderRegex: ""
     requestBodyRegex: ""
     responseHeaderRegex: ""
