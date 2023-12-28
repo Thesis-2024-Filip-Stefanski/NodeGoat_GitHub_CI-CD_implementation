@@ -1,0 +1,174 @@
+---
+env:
+  contexts:
+  - name: "NodeGoat"
+    urls:
+    - "http://localhost:4000"
+    includePaths:
+    - "http://localhost:4000.*"
+    excludePaths: []
+    authentication:
+      parameters: {}
+      verification:
+        method: "response"
+        pollFrequency: 60
+        pollUnits: "requests"
+        pollUrl: ""
+        pollPostData: ""
+    sessionManagement:
+      method: "cookie"
+      parameters: {}
+    technology:
+      exclude: []
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- parameters:
+    maxAlertsPerRule: 0
+    scanOnlyInScope: true
+    maxBodySizeInBytesToScan: 0
+    enableTags: false
+    disableAllRules: false
+  rules: []
+  name: "passiveScan-config"
+  type: "passiveScan-config"
+- parameters:
+    context: "NodeGoat"
+    user: ""
+    url: ""
+    maxDuration: 0
+    maxDepth: 0
+    maxChildren: 0
+    acceptCookies: false
+    handleODataParametersVisited: false
+    handleParameters: "IGNORE_COMPLETELY"
+    maxParseSizeBytes: 0
+    parseComments: true
+    parseGit: true
+    parseRobotsTxt: false
+    parseSitemapXml: false
+    parseSVNEntries: false
+    postForm: false
+    processForm: false
+    requestWaitTime: 0
+    sendRefererHeader: false
+    userAgent: ""
+  name: "spider"
+  type: "spider"
+  tests:
+  - onFail: "WARN"
+    statistic: "automation.spider.urls.added"
+    site: ""
+    operator: ">="
+    value: 100
+    name: "At least 100 URLs found"
+    type: "stats"
+  - onFail: "ERROR"
+    url: "http://localhost:4000"
+    requestHeaderRegex: ""
+    requestBodyRegex: ""
+    responseHeaderRegex: ""
+    responseBodyRegex: ""
+    operator: "or"
+    name: "spider/url"
+    type: "url"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters:
+    context: "Juice Shop"
+    user: ""
+    url: ""
+    maxDuration: 60
+    maxCrawlDepth: 10
+    numberOfBrowsers: 16
+    maxCrawlStates: 0
+    eventWait: 1000
+    reloadWait: 1000
+    clickDefaultElems: true
+    clickElemsOnce: true
+    randomInputs: true
+    inScopeOnly: true
+    runOnlyIfModern: false
+  name: "spiderAjax"
+  type: "spiderAjax"
+  tests:
+  - onFail: "WARN"
+    statistic: "spiderAjax.urls.added"
+    site: ""
+    operator: ">="
+    value: 100
+    name: "At least 100 URLs found"
+    type: "stats"
+  - onFail: "ERROR"
+    url: "http://localhost:4000"
+    requestHeaderRegex: ""
+    requestBodyRegex: ""
+    responseHeaderRegex: ""
+    responseBodyRegex: ""
+    operator: "or"
+    name: "spiderAjax/url"
+    type: "url"
+- parameters:
+    maxDuration: 0
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters:
+    template: "traditional-md"
+    reportDir: "/zap"
+    reportFile: "ZAP_ALERT_REPORT"
+    reportTitle: "NodeGoat scann report"
+    reportDescription: "This is a report that should contain only basic information\
+      \ about the web application. It should be revisited by a team member. This scann\
+      \ is meant to be run afere every modification of the project repository."
+    displayReport: false
+  risks:
+  - "low"
+  - "medium"
+  - "high"
+  confidences:
+  - "low"
+  - "medium"
+  - "high"
+  - "confirmed"
+  sections:
+  - "instancecount"
+  - "alertdetails"
+  - "alertcount"
+  sites: []
+  name: "report .md"
+  type: "report"
+- parameters:
+    template: "modern"
+    theme: "corporate"
+    reportDir: "/zap"
+    reportFile: "ZAP_REPORT"
+    reportTitle: "NodeGoat scann report"
+    reportDescription: "This is a report that should contain only basic information\
+      \ about the web application. It should be revisited by a team member. This scann\
+      \ is meant to be run afere every modification of the project repository."
+    displayReport: false
+  risks:
+  - "low"
+  - "medium"
+  - "high"
+  confidences:
+  - "low"
+  - "medium"
+  - "high"
+  - "confirmed"
+  sections:
+  - "passingrules"
+  - "instancecount"
+  - "alertdetails"
+  - "alertcount"
+  - "params"
+  - "chart"
+  - "statistics"
+  sites: []
+  name: "report .html"
+  type: "report"
+

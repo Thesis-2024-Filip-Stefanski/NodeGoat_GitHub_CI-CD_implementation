@@ -1,0 +1,249 @@
+---
+env:
+  contexts:
+  - name: "NodeGoat"
+    urls:
+    - "http://localhost:4000"
+    includePaths:
+    - "http://localhost:4000.*"
+    excludePaths: []
+    authentication:
+      parameters: {}
+      verification:
+        method: "response"
+        pollFrequency: 60
+        pollUnits: "requests"
+        pollUrl: ""
+        pollPostData: ""
+    sessionManagement:
+      method: "cookie"
+      parameters: {}
+    technology:
+      exclude: []
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- parameters:
+    maxAlertsPerRule: 10
+    scanOnlyInScope: true
+    maxBodySizeInBytesToScan: 0
+    enableTags: false
+    disableAllRules: true
+  rules:
+  - id: 10038
+    name: "Content Security Policy (CSP) Header Not Set"
+    threshold: "medium"
+  - id: 10098
+    name: "Cross-Domain Misconfiguration"
+    threshold: "medium"
+  - id: 10020
+    name: "Anti-clickjacking Header"
+    threshold: "medium"
+  name: "passiveScan-config"
+  type: "passiveScan-config"
+- parameters:
+    context: "NodeGoat"
+    user: ""
+    url: ""
+    maxDuration: 0
+    maxDepth: 0
+    maxChildren: 0
+    acceptCookies: false
+    handleODataParametersVisited: false
+    handleParameters: "IGNORE_COMPLETELY"
+    maxParseSizeBytes: 0
+    parseComments: true
+    parseGit: true
+    parseRobotsTxt: true
+    parseSitemapXml: true
+    parseSVNEntries: true
+    postForm: false
+    processForm: false
+    requestWaitTime: 0
+    sendRefererHeader: false
+    userAgent: ""
+  name: "spider"
+  type: "spider"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters:
+    context: "NodeGoat"
+    user: ""
+    url: ""
+    maxDuration: 60
+    maxCrawlDepth: 10
+    numberOfBrowsers: 16
+    maxCrawlStates: 0
+    eventWait: 2000
+    reloadWait: 2000
+    clickDefaultElems: true
+    clickElemsOnce: true
+    randomInputs: true
+    inScopeOnly: true
+    runOnlyIfModern: false
+  name: "spiderAjax"
+  type: "spiderAjax"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters:
+    context: "NodeGoat"
+    user: ""
+    policy: ""
+    maxRuleDurationInMins: 0
+    maxScanDurationInMins: 0
+    addQueryParam: false
+    delayInMs: 0
+    handleAntiCSRFTokens: false
+    injectPluginIdInHeader: false
+    scanHeadersAllRequests: true
+    threadPerHost: 32
+    maxAlertsPerRule: 10
+  policyDefinition:
+    defaultStrength: "high"
+    defaultThreshold: "off"
+    rules:
+    - id: 40026
+      name: "Cross Site Scripting (DOM Based)"
+      threshold: "low"
+      strength: "high"
+    - id: 40014
+      name: "Cross Site Scripting (Persistent)"
+      threshold: "low"
+      strength: "high"
+    - id: 40016
+      name: "Cross Site Scripting (Persistent) - Prime"
+      threshold: "low"
+      strength: "high"
+    - id: 40017
+      name: "Cross Site Scripting (Persistent) - Spider"
+      threshold: "low"
+      strength: "high"
+    - id: 40012
+      name: "Cross Site Scripting (Reflected)"
+      threshold: "low"
+      strength: "high"
+    - id: 40018
+      name: "SQL Injection"
+      threshold: "low"
+      strength: "high"
+    - id: 90034
+      name: "Cloud Metadata Potentially Exposed"
+      threshold: "low"
+      strength: "high"
+  name: "activeScan"
+  type: "activeScan"
+  tests:
+  - onFail: "ERROR"
+    scanRuleId: 40026
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40014
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40016
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40017
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40012
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40018
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    scanRuleId: 40034
+    action: "passIfAbsent"
+    risk: "high"
+    name: "activeScan/alert"
+    type: "alert"
+  - onFail: "ERROR"
+    url: "http://localhost:4000"
+    requestHeaderRegex: ""
+    requestBodyRegex: ""
+    responseHeaderRegex: ""
+    responseBodyRegex: ""
+    operator: "or"
+    name: "activeScan/url"
+    type: "url"
+- parameters:
+    template: "traditional-md"
+    reportDir: "/zap"
+    reportFile: "ZAP_ALERT_REPORT"
+    reportTitle: "NodeGoat scann report"
+    reportDescription: "This is a report that should contain complex information about\
+      \ the web application. It should be revisited by a team member. This scann is\
+      \ meant to be run periodically and is meant to be the longest out of all the\
+      \ scanns."
+    displayReport: false
+  risks:
+  - "low"
+  - "medium"
+  - "high"
+  confidences:
+  - "low"
+  - "medium"
+  - "high"
+  - "confirmed"
+  sections:
+  - "instancecount"
+  - "alertdetails"
+  - "alertcount"
+  sites: []
+  name: "report .md"
+  type: "report"
+- parameters:
+    template: "modern"
+    theme: "corporate"
+    reportDir: "/zap"
+    reportFile: "ZAP_REPORT"
+    reportTitle: "NodeGoat scann report"
+    reportDescription: "This is a report that should contain complex information about\
+      \ the web application. It should be revisited by a team member. This scann is\
+      \ meant to be run periodically and is meant to be the longest out of all the\
+      \ scanns."
+    displayReport: false
+  risks:
+  - "low"
+  - "medium"
+  - "high"
+  confidences:
+  - "low"
+  - "medium"
+  - "high"
+  - "confirmed"
+  sections:
+  - "passingrules"
+  - "instancecount"
+  - "alertdetails"
+  - "alertcount"
+  - "params"
+  - "chart"
+  - "statistics"
+  sites: []
+  name: "report .html"
+  type: "report"
+
