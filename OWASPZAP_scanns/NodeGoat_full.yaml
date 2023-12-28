@@ -3,9 +3,9 @@ env:
   contexts:
   - name: "NodeGoat"
     urls:
-    - "http://localhost:4000"
+    - "http://app-web-1:4000"
     includePaths:
-    - "http://localhost:4000.*"
+    - "http://app-web-1:4000.*"
     excludePaths: []
     authentication:
       parameters: {}
@@ -60,7 +60,7 @@ jobs:
   type: "spider"
   tests:
   - onFail: "ERROR"
-    url: "http://localhost:4000"
+    url: "http://app-web-1:4000"
     requestHeaderRegex: ""
     requestBodyRegex: ""
     responseHeaderRegex: ""
@@ -90,7 +90,7 @@ jobs:
   type: "spiderAjax"
   tests:
   - onFail: "INFO"
-    url: "http://localhost:4000"
+    url: "http://app-web-1:4000"
     requestHeaderRegex: ""
     requestBodyRegex: ""
     responseHeaderRegex: ""
@@ -104,7 +104,7 @@ jobs:
 - parameters:
     apiFile: ""
     apiUrl: ""
-    targetUrl: "http://localhost:4000"
+    targetUrl: "http://app-web-1:4000"
     context: "NodeGoat"
   name: "openapi"
   type: "openapi"
@@ -135,7 +135,7 @@ jobs:
     name: "activeScan/alert"
     type: "alert"
   - onFail: "INFO"
-    url: "http://localhost:4000"
+    url: "http://app-web-1:4000"
     requestHeaderRegex: ""
     requestBodyRegex: ""
     responseHeaderRegex: ""
