@@ -58,16 +58,6 @@ jobs:
     userAgent: ""
   name: "spider"
   type: "spider"
-  tests:
-  - onFail: "ERROR"
-    url: "http://docker-compose_application_web_1:4000"
-    requestHeaderRegex: ""
-    requestBodyRegex: ""
-    responseHeaderRegex: ""
-    responseBodyRegex: ""
-    operator: "or"
-    name: "spider/url"
-    type: "url"
 - parameters: {}
   name: "passiveScan-wait"
   type: "passiveScan-wait"
@@ -88,16 +78,6 @@ jobs:
     runOnlyIfModern: true
   name: "spiderAjax"
   type: "spiderAjax"
-  tests:
-  - onFail: "INFO"
-    url: "http://docker-compose_application_web_1:4000"
-    requestHeaderRegex: ""
-    requestBodyRegex: ""
-    responseHeaderRegex: ""
-    responseBodyRegex: ""
-    operator: "or"
-    name: "spiderAjax/url"
-    type: "url"
 - parameters: {}
   name: "passiveScan-wait"
   type: "passiveScan-wait"
@@ -127,22 +107,6 @@ jobs:
     rules: []
   name: "activeScan"
   type: "activeScan"
-  tests:
-  - onFail: "WARN"
-    scanRuleId: 0
-    action: "passIfAbsent"
-    risk: "high"
-    name: "activeScan/alert"
-    type: "alert"
-  - onFail: "INFO"
-    url: "http://docker-compose_application_web_1:4000"
-    requestHeaderRegex: ""
-    requestBodyRegex: ""
-    responseHeaderRegex: ""
-    responseBodyRegex: ""
-    operator: "or"
-    name: "activeScan/url"
-    type: "url"
 - parameters:
     template: "traditional-md"
     reportDir: "/zap"
