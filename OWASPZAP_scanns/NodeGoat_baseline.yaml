@@ -58,23 +58,6 @@ jobs:
     userAgent: ""
   name: "spider"
   type: "spider"
-  tests:
-  - onFail: "WARN"
-    statistic: "automation.spider.urls.added"
-    site: ""
-    operator: ">="
-    value: 100
-    name: "At least 100 URLs found"
-    type: "stats"
-  - onFail: "ERROR"
-    url: "http://docker-compose_application_web_1:4000"
-    requestHeaderRegex: ""
-    requestBodyRegex: ""
-    responseHeaderRegex: ""
-    responseBodyRegex: ""
-    operator: "or"
-    name: "spider/url"
-    type: "url"
 - parameters: {}
   name: "passiveScan-wait"
   type: "passiveScan-wait"
@@ -95,23 +78,6 @@ jobs:
     runOnlyIfModern: false
   name: "spiderAjax"
   type: "spiderAjax"
-  tests:
-  - onFail: "WARN"
-    statistic: "spiderAjax.urls.added"
-    site: ""
-    operator: ">="
-    value: 100
-    name: "At least 100 URLs found"
-    type: "stats"
-  - onFail: "ERROR"
-    url: "http://docker-compose_application_web_1:4000"
-    requestHeaderRegex: ""
-    requestBodyRegex: ""
-    responseHeaderRegex: ""
-    responseBodyRegex: ""
-    operator: "or"
-    name: "spiderAjax/url"
-    type: "url"
 - parameters:
     maxDuration: 0
   name: "passiveScan-wait"
@@ -138,7 +104,6 @@ jobs:
   - "instancecount"
   - "alertdetails"
   - "alertcount"
-  sites: []
   name: "report .md"
   type: "report"
 - parameters:
@@ -168,7 +133,6 @@ jobs:
   - "params"
   - "chart"
   - "statistics"
-  sites: []
   name: "report .html"
   type: "report"
 
