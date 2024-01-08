@@ -31,7 +31,7 @@ jobs:
 
        - name: Execute the scan
          run: |
-           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_baseline.yaml
+           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_custom.yaml
            docker exec OWASPZAP sh -c ls
            docker exec -i OWASPZAP pwd
            docker cp OWASPZAP:/zap/ZAP_REPORT.html .
