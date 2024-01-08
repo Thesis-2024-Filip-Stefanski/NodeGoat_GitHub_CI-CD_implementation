@@ -1,5 +1,5 @@
 name: OWASP ZAP SCAN
-on: [push]
+on: workflow_dispatch
 
 jobs:
   test:
