@@ -21,7 +21,7 @@ env:
     technology:
       exclude: []
   parameters:
-    failOnWARN: true
+    failOnError: true
     failOnWarning: false
     progressToStdout: true
   vars: {}
