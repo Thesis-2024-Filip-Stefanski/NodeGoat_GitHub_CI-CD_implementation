@@ -27,11 +27,11 @@ jobs:
             docker ps
        
        - name: Copy test files to the OWASP ZAP image
-         run: docker cp OWASPZAP_scanns/NodeGoat_full.yaml OWASPZAP:/zap/NodeGoat_full.yaml 
+         run: docker cp OWASPZAP_scanns/NodeGoat_custom1.yaml OWASPZAP:/zap/NodeGoat_custom1.yaml 
 
        - name: Execute the scan
          run: |
-           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_full.yaml
+           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_custom1.yaml
            docker exec OWASPZAP sh -c ls
            docker exec -i OWASPZAP pwd
            docker cp OWASPZAP:/zap/ZAP_REPORT.html .
