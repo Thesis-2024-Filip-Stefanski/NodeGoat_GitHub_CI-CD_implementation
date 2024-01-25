@@ -14,6 +14,8 @@ jobs:
        - name: Create Docker Network
          run: |
           echo ${{ github.event.repository.name }}
+          echo ${{ github.repository }}
+          echo 'xaxc'
           docker network create test_network
           docker-compose build
           docker-compose up --detach 
