@@ -13,17 +13,18 @@ jobs:
           
        - name: Create Docker Network
          run: |
-          docker network create mynetwork
+          echo ${{ github.event.repository.name }}
+          docker network create test_network
           docker-compose build
           docker-compose up --detach 
           docker ps 
-          docker network connect mynetwork docker-compose_application_web_1
-          docker network connect mynetwork docker-compose_application_mongo_1
-          docker network inspect mynetwork
+          docker network connect test_network docker-compose_application_web_1
+          docker network connect test_network docker-compose_application_mongo_1
+          docker network inspect test_network
           
        - name: Set up testing environment
          run: |
-            docker run -d -i -t --network=mynetwork --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
+            docker run -d -i -t --network=test_network --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
             docker ps
        
        - name: Copy test files to the OWASP ZAP image
