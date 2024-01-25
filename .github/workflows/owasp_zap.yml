@@ -1,5 +1,5 @@
 name: OWASP ZAP SCAN
-on: workflow_dispatch
+on: [push]
 
 jobs:
   test:
@@ -13,30 +13,21 @@ jobs:
           
        - name: Create Docker Network
          run: |
-          echo ${{ github.event.repository.name }}
-          echo ${{ github.repository }}
-          echo 'xaxc'
           docker network create test_network
           docker-compose build
           docker-compose up --detach 
-          docker ps 
-          docker network connect test_network docker-compose_application_web_1
-          docker network connect test_network docker-compose_application_mongo_1
-          docker network inspect test_network
+          docker network connect test_network ${{ github.event.repository.name }}_web_1
+          docker network connect test_network ${{ github.event.repository.name }}_1
           
        - name: Set up testing environment
-         run: |
-            docker run -d -i -t --network=test_network --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
-            docker ps
+         run: docker run -d -i -t --network=test_network --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
        
        - name: Copy test files to the OWASP ZAP image
-         run: docker cp OWASPZAP_scanns/NodeGoat_custom1.yaml OWASPZAP:/zap/NodeGoat_custom1.yaml 
+         run: docker cp OWASPZAP_scanns/NodeGoat_full.yaml OWASPZAP:/zap/NodeGoat_full.yaml 
 
        - name: Execute the scan
          run: |
-           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_custom1.yaml
-           docker exec OWASPZAP sh -c ls
-           docker exec -i OWASPZAP pwd
+           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_full.yaml
            docker cp OWASPZAP:/zap/ZAP_REPORT.html .
            docker cp OWASPZAP:/zap/ZAP_ALERT_REPORT.md .
 
