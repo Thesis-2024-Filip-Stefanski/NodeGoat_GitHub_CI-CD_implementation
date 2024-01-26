@@ -3,9 +3,9 @@ env:
   contexts:
   - name: "NodeGoat"
     urls:
-    - "http://docker-compose_application_web_1:4000"
+    - "http://nodegoat_github_ci-cd_implementation_web_1:4000"
     includePaths:
-    - "http://docker-compose_application_web_1:4000.*"
+    - "http://nodegoat_github_ci-cd_implementation_web_1:4000.*"
     excludePaths: []
     authentication:
       parameters: {}

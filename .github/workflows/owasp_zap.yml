@@ -16,8 +16,9 @@ jobs:
           docker network create test_network
           docker-compose build
           docker-compose up --detach 
-          docker network connect test_network ${{ github.event.repository.name }}_web_1
-          docker network connect test_network ${{ github.event.repository.name }}_mongo_1
+          container_name=`echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]'`
+          docker network connect test_network $container_name'_web_1'
+          docker network connect test_network $container_name'_mongo_1'
           
        - name: Set up testing environment
          run: docker run -d -i -t --network=test_network --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
