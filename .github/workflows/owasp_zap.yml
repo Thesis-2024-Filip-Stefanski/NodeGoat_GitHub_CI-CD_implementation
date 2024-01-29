@@ -24,11 +24,11 @@ jobs:
          run: docker run -d -i -t --network=test_network --name OWASPZAP -v $(pwd):/zap/wrk/:rw owasp/zap2docker-stable
        
        - name: Copy test files to the OWASP ZAP image
-         run: docker cp OWASPZAP_scanns/NodeGoat_full.yaml OWASPZAP:/zap/NodeGoat_full.yaml 
+         run: docker cp OWASPZAP_scanns/NodeGoat_ Complete.yaml OWASPZAP:/zap/NodeGoat_ Complete.yaml 
 
        - name: Execute the scan
          run: |
-           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_full.yaml
+           docker exec -i OWASPZAP zap.sh -cmd -autorun /zap/NodeGoat_ Complete.yaml
            docker cp OWASPZAP:/zap/ZAP_REPORT.html .
            docker cp OWASPZAP:/zap/ZAP_ALERT_REPORT.md .
 
